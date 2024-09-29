@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="w-full min-h-screen px-10 text-white bg-zinc-800 flex flex-col items-center">
+        <h3 class="text-center py-10 text-3xl">Add Todo</h3>
+        <form class="w-1/2" action="/create" method="post">
+            <input class="w-full block h-[40px] mt-2 px-3 text-black" type="text" name="name"
+                placeholder="Add Task Title" />
+            <textarea class="w-full block h-[60px] mt-5 px-3 text-black" name="content"
+                placeholder="Add Task content"></textarea>
+
+            <input class="w-full py-2 block mt-3 px-3 text-black bg-blue-500" type="submit" value="Add Task" />
+        </form>
+        <% if (errorMessage) { %>
+            <div class="alert alert-dangerv mt-5 bg-red-500 px-5 py-2 rounded-full">
+                <%= errorMessage %>
+            </div>
+            <% } %>
+
+                <div class="w-full mt-10 mx-auto">
+                    <div class="cards flex flex-wrap gap-5">
+
+                        <% if(todo.length> 0) {%>
+                            <% todo.forEach((item)=> {%>
+
+                                <div
+                                    class="card bg-zinc-600 w-56 min-h-56 rounded-md px-5 py-3 flex flex-col items-center justify-between">
+                                    <div class="w-full">
+                                        <h3 class="text-2xl font-bold mb-4">
+                                            <%= item.name %>
+                                        </h3>
+                                        <p class="text-[14px]">
+                                            <%= item.content %>
+                                        </p>
+                                    </div>
+                                    <div class="flex justify-between gap-4 mt-5">
+                                        <a class="px-5 py-1 rounded-md bg-blue-500"
+                                            href="/edit/<%= item._id %>">Edit</a>
+                                        <a class="px-5 py-1 rounded-md bg-red-500"
+                                            href="/delete/<%= item._id %>">Delete</a>
+                                    </div>
+                                </div>
+
+                                <%}) } else { %>
+                                    No Task Pending
+
+                                    <% } %>
+
+
+
+
+                    </div>
+                </div>
+    </div>
+</body>
+
+</html>
